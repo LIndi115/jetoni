@@ -31,24 +31,30 @@
             margin-bottom: 20px;
         }
         h1 { color: #333; margin-bottom: 5px; font-size: 26px; }
-        p { color: #666; font-size: 16px; margin-bottom: 25px; line-height: 1.5; }
-        .btn-wa { 
-            background: #25d366; 
-            color: white; 
-            padding: 15px 30px;
-            border: none;
+        p { color: #666; font-size: 16px; margin-bottom: 25px; line-height: 1.5; font-weight: bold; }
+        
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 15px 25px;
             border-radius: 50px;
-            cursor: pointer;
+            text-decoration: none;
+            color: white;
             font-weight: bold;
             font-size: 16px;
-            text-decoration: none;
-            display: inline-block;
             transition: 0.3s;
+            display: block;
         }
-        .btn-wa:hover { 
-            background: #128c7e; 
-            transform: scale(1.05);
-        }
+
+        .btn-wa { background: #25d366; } /* Ngjyra e WhatsApp */
+        .btn-wa:hover { background: #128c7e; transform: scale(1.03); }
+
+        .btn-viber { background: #7360f2; } /* Ngjyra e Viber */
+        .btn-viber:hover { background: #5949d6; transform: scale(1.03); }
     </style>
 </head>
 <body>
@@ -57,9 +63,13 @@
         <img src="foto.jpg" alt="Herolind Smajli" class="profili">
         
         <h1>HEROLIND SMAJLI</h1>
-        <p>KONTAKTI IM ZYRTAR NE WHATSAPP EDHE VIBER. KLIKO ME BUTONIN POSHTE PER TE ME SHTUAR NE KONTAKTE.</p>
+        <p>KONTAKTI IM ZYRTAR NE WHATSAPP EDHE VIBER. KLIKO MBI BUTONAT PER TE ME SHTUAR NE KONTAKTE.</p>
         
-        <a href="https://wa.me/38344410456" target="_blank" class="btn-wa">Më shto në WhatsApp</a>
+        <div class="buttons-container">
+            <a href="https://wa.me/38344410456" target="_blank" class="btn btn-wa">Më shto në WhatsApp</a>
+            
+            <a href="viber://add?number=38344410456" class="btn btn-viber">Më shto në Viber</a>
+        </div>
     </div>
 
 </body>
