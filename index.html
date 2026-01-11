@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herolind - Portofolio</title>
+    <title>Herolind Smajli - Kontakt</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,11 +13,6 @@
             min-height: 100vh;
             margin: 0;
             background: #f0f2f5;
-            transition: 0.3s;
-        }
-        .dark-mode {
-            background: #1a1a1a;
-            color: white;
         }
         .card {
             background: white;
@@ -25,57 +20,34 @@
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
-            max-width: 450px;
-            transition: 0.3s;
+            max-width: 400px;
         }
-        .dark-mode .card {
-            background: #2d2d2d;
-            color: white;
-        }
-        h1 { color: #00796b; margin-bottom: 10px; font-size: 32px; }
-        .dark-mode h1 { color: #4db6ac; }
-        p { color: #5f6368; line-height: 1.6; font-size: 18px; }
-        .dark-mode p { color: #ccc; }
-        .buttons { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
-        button {
+        h1 { color: #00796b; margin-bottom: 10px; font-size: 28px; }
+        p { color: #5f6368; line-height: 1.6; font-size: 18px; margin-bottom: 25px; }
+        .btn-wa { 
+            background: #25d366; 
+            color: white; 
             padding: 15px 25px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
+            text-decoration: none;
+            display: inline-block;
             transition: 0.2s;
         }
-        .btn-wa { background: #25d366; color: white; }
-        .btn-wa:hover { background: #128c7e; transform: scale(1.02); }
-        .btn-theme { background: transparent; border: 2px solid #00796b; color: #00796b; }
-        .dark-mode .btn-theme { border-color: #4db6ac; color: #4db6ac; }
-        .btn-theme:hover { background: rgba(0, 121, 107, 0.1); }
+        .btn-wa:hover { background: #128c7e; transform: scale(1.05); }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h1>Herolind - Web Developer</h1>
-        <p>Mirësevini! Unë krijoj faqe moderne dhe interaktive duke përdorur Linux Mint. Ky është projekti im i parë i gatshëm për klientë.</p>
+        <h1>Herolind Smajli</h1>
+        <p>Kontakti im në WhatsApp. Kliko butonin poshtë për të më shtuar direkt dhe për të biseduar!</p>
         
-        <div class="buttons">
-            <button class="btn-wa" onclick="kontakto()">Më Kontakto në WhatsApp</button>
-            <button class="btn-theme" onclick="toggleDark()">Ndrysho Temën</button>
-        </div>
+        <a href="https://wa.me/38344410456" target="_blank" class="btn-wa">Më shto në WhatsApp</a>
     </div>
 
-    <script>
-        function kontakto() {
-            // NDRYSHO NUMRIN TËND KËTU (p.sh. 38344123456)
-            let numri = "38344123456"; 
-            let mesazhi = "Përshëndetje Herolind, e pashë faqen tënde dhe dëshiroj të bisedojmë!";
-            window.open("https://wa.me/" + numri + "?text=" + encodeURIComponent(mesazhi), "_blank");
-        }
-
-        function toggleDark() {
-            document.body.classList.toggle("dark-mode");
-        }
-    </script>
 </body>
 </html>
