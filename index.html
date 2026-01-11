@@ -3,54 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herolind Smajli - Kontakt</title>
+    <title>Herolind Smajli - UEFA B Coach</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: #f0f2f5;
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            background: #121212; 
+            color: white; 
         }
-        .card {
-            background: white;
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 350px;
+        .card { 
+            background: #1e1e1e; 
+            padding: 40px 30px; 
+            border-radius: 25px; 
+            text-align: center; 
+            max-width: 350px; 
+            border: 2px solid #d4af37; /* Ngjyrë ari për licencën */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
-        /* KJO PJESË RREGULLON FOTON TËNDE */
-        .profili {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #25d366;
+        .profili { 
+            width: 160px; 
+            height: 160px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 4px solid #d4af37; 
+            margin-bottom: 20px; 
+        }
+        h1 { 
+            margin: 10px 0 5px 0; 
+            font-size: 26px; 
+            color: #ffffff; 
+            letter-spacing: 1px;
+        }
+        .badge { 
+            background: #d4af37; 
+            color: #000; 
+            padding: 6px 20px; 
+            border-radius: 50px; 
+            font-weight: 800; 
+            font-size: 13px; 
+            display: inline-block; 
             margin-bottom: 20px;
-            background-color: #ddd; /* Shfaqet gri nëse fotoja mungon */
+            text-transform: uppercase;
         }
-        h1 { color: #333; margin-bottom: 5px; font-size: 26px; }
-        p { color: #666; font-size: 16px; margin-bottom: 25px; }
+        p { 
+            color: #bbbbbb; 
+            font-size: 17px; 
+            line-height: 1.6; 
+            margin-bottom: 30px;
+        }
         .btn-wa { 
             background: #25d366; 
             color: white; 
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
-            text-decoration: none;
-            display: inline-block;
+            padding: 16px 20px; 
+            border-radius: 12px; 
+            text-decoration: none; 
+            display: block; 
+            font-weight: bold; 
+            font-size: 18px;
             transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
         .btn-wa:hover { 
-            background: #128c7e; 
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            background: #1ebc5a; 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
         }
     </style>
 </head>
@@ -60,9 +80,11 @@
         <img src="foto.jpg" alt="Herolind Smajli" class="profili">
         
         <h1>Herolind Smajli</h1>
-        <p>Kontakti im zyrtar në WhatsApp. Kliko butonin poshtë për të më shtuar në kontakte!</p>
+        <div class="badge">Trajner i Licencuar UEFA B</div>
         
-        <a href="https://wa.me/38344410456" target="_blank" class="btn-wa">Më shto në WhatsApp</a>
+        <p>Specialist në zhvillimin e teknikës dhe taktikës së futbollit. I përkushtuar në rritjen e talenteve të reja.</p>
+        
+        <a href="https://wa.me/38344410456" target="_blank" class="btn-wa">Më kontakto për bashkëpunim</a>
     </div>
 
 </body>
