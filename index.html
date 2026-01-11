@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herolind - Portofolio</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            background: #f0f2f5; 
+            transition: 0.5s;
+        }
+
+        .container {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 450px;
+        }
+
+        h1 { color: #1a73e8; font-size: 32px; margin-bottom: 15px; }
+        
+        p { color: #5f6368; font-size: 18px; line-height: 1.6; margin-bottom: 30px; }
+
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+
+        .btn {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-primary { background: #1a73e8; color: white; }
+        .btn-primary:hover { background: #1557b0; }
+
+        .btn-outline { background: transparent; border: 2px solid #1a73e8; color: #1a73e8; }
+        .btn-outline:hover { background: #e8f0fe; }
+
+        /* Dark Mode */
+        .dark-mode { background: #121212; }
+        .dark-mode .container { background: #1e1e1e; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .dark-mode h1 { color: #8ab4f8; }
+        .dark-mode p { color: #bdc1c6; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Herolind - Web Developer</h1>
+        <p>Mirësevini! Unë krijoj faqe moderne dhe interaktive duke përdorur Linux Mint. Ky është projekti im i parë i gatshëm për klientë.</p>
+        
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="kontakto()">Më Kontakto në WhatsApp</button>
+            <button class="btn btn-outline" onclick="toggleDark()">Ndrysho Temën</button>
+        </div>
+    </div>
+
+    <script>
+        function kontakto() {
+            alert("Këtu mund ta lidhim direkt me numrin tënd të telefonit!");
+        }
+
+        function toggleDark() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+
+</body>
+</html>
