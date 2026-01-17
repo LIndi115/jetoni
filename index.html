@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>JETON THAQI | Premium Billing System 2026</title>
+    <title>JETON THAQI | Smart App</title>
+
+    <meta name="theme-color" content="#0a0a0c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Jeton Fatura">
+    
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Jeton%20Thaqi%20Billing%22,%22short_name%22:%22Fatura%22,%22start_url%22:%22index.html%22,%22display%22:%22standalone%22,%22background_color%22:%22#0a0a0c%22,%22theme_color%22:%22#00ffa3%22,%22icons%22:[{%22src%22:%22https://cdn-icons-png.flaticon.com/512/1039/1039714.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}">
+
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     
@@ -70,7 +78,6 @@
             color: white;
             font-size: 0.9rem;
             transition: all 0.3s ease;
-            width: 100%;
         }
 
         input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 15px var(--primary-glow); }
@@ -90,16 +97,14 @@
             gap: 10px;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-size: 0.85rem;
-            text-decoration: none;
         }
 
-        .btn-main { background: var(--primary); color: #000; box-shadow: 0 4px 20px var(--primary-glow); width: 100%; }
+        .btn-main { background: var(--primary); color: #000; box-shadow: 0 4px 20px var(--primary-glow); }
         .btn-pdf { background: #fff; color: #000; }
         .btn-wa { background: var(--whatsapp); color: white; }
         .btn-viber { background: var(--viber); color: white; }
 
         .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
-        .btn:active { transform: translateY(0); }
 
         /* --- PREVIEW AREA --- */
         .preview-area {
@@ -122,19 +127,10 @@
             position: relative;
         }
 
-        /* Invoice Modern Header */
-        .inv-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 60px;
-        }
-
+        .inv-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 60px; }
         .inv-logo-box h2 { font-weight: 900; font-size: 2.2rem; line-height: 1; letter-spacing: -1.5px; }
         .inv-logo-box span { color: #555; font-weight: 600; font-size: 0.9rem; }
-
         .inv-meta { text-align: right; }
-        .inv-meta h4 { font-size: 1.1rem; margin-bottom: 5px; }
         .inv-meta p { font-size: 0.8rem; color: #666; line-height: 1.6; }
 
         .client-info-block {
@@ -143,75 +139,31 @@
             background: #f8f9fa;
             border-left: 4px solid #000;
         }
-        .client-info-block label { color: #888; margin-bottom: 5px; display: block; }
-        .client-info-block h3 { font-size: 1.4rem; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* Table Styling */
         .table-responsive { width: 100%; overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-bottom: 50px; min-width: 500px; }
-        th { text-align: left; padding: 15px 10px; border-bottom: 2px solid #000; font-size: 0.75rem; text-transform: uppercase; color: #888; }
+        th { text-align: left; padding: 15px 10px; border-bottom: 2px solid #000; font-size: 0.75rem; color: #888; }
         td { padding: 20px 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
         
         .type-tag { font-size: 0.65rem; padding: 3px 8px; border-radius: 4px; background: #eee; margin-right: 8px; font-weight: 700; }
 
-        .total-section {
-            display: flex;
-            justify-content: flex-end;
-            border-top: 2px solid #000;
-            padding-top: 25px;
-        }
+        .total-section { display: flex; justify-content: flex-end; border-top: 2px solid #000; padding-top: 25px; }
         .total-box { text-align: right; }
-        .total-box label { font-size: 0.9rem; color: #000; font-weight: 800; }
         .total-box .amount { font-size: 2.8rem; font-weight: 900; display: block; letter-spacing: -1px; }
 
-        .inv-footer-note {
-            margin-top: 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 20px;
-        }
-        .note-text { font-size: 0.75rem; color: #999; max-width: 350px; line-height: 1.5; }
-        .signature-line { border-top: 1px solid #000; width: 180px; text-align: center; padding-top: 10px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+        .inv-footer-note { margin-top: 80px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .note-text { font-size: 0.75rem; color: #999; max-width: 350px; }
+        .signature-line { border-top: 1px solid #000; width: 180px; text-align: center; padding-top: 10px; font-size: 0.7rem; font-weight: 700; }
 
-        /* --- RESPONSIVE FIX FOR MOBILE --- */
         @media (max-width: 1100px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-            .control-panel {
-                padding: 25px;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-            }
-            .preview-area {
-                padding: 20px 10px;
-            }
-            #invoice-card {
-                padding: 30px 20px;
-                box-shadow: none;
-            }
-            .inv-top {
-                flex-direction: column;
-                gap: 25px;
-                margin-bottom: 30px;
-            }
-            .inv-meta {
-                text-align: left;
-            }
-            .total-box .amount {
-                font-size: 2.2rem;
-            }
-            .inv-footer-note {
-                flex-direction: column;
-                align-items: flex-start;
-                margin-top: 40px;
-            }
-            .signature-line {
-                width: 100%;
-                margin-top: 30px;
-            }
+            .main-grid { grid-template-columns: 1fr; height: auto; }
+            .control-panel { padding: 20px; }
+            .preview-area { padding: 20px 10px; }
+            #invoice-card { padding: 30px 20px; }
+            .inv-top { flex-direction: column; gap: 20px; }
+            .inv-meta { text-align: left; }
+            .total-box .amount { font-size: 2.2rem; }
+            .inv-footer-note { flex-direction: column; align-items: flex-start; gap: 30px; }
         }
     </style>
 </head>
@@ -221,12 +173,12 @@
     <aside class="control-panel">
         <div class="brand-header">
             <h1>JETON THAQI</h1>
-            <p>Smart Invoicing System v3.0</p>
+            <p>Smart Invoicing App v3.5</p>
         </div>
 
         <div class="input-group">
             <label>Emri i Klientit</label>
-            <input type="text" id="clientInp" placeholder="Psh. Herolind Smajli" oninput="updatePreview()">
+            <input type="text" id="clientInp" placeholder="Emri i Klientit" oninput="updatePreview()">
         </div>
 
         <div class="row-inputs">
@@ -234,7 +186,7 @@
                 <label>Lloji</label>
                 <select id="typeInp">
                     <option value="Material">Material</option>
-                    <option value="Punë">Punë e Kryer</option>
+                    <option value="Punë">Punë</option>
                 </select>
             </div>
             <div class="input-group">
@@ -248,14 +200,14 @@
         </div>
 
         <div class="input-group">
-            <label>Përshkrimi i Artikullit / Punës</label>
-            <input type="text" id="nameInp" placeholder="Psh. Montimi i ndriçimit led">
+            <label>Përshkrimi</label>
+            <input type="text" id="nameInp" placeholder="Përshkrimi i punës">
         </div>
 
         <div class="row-inputs">
             <div class="input-group">
                 <label>Sasia</label>
-                <input type="number" id="qtyInp" value="1" step="0.1">
+                <input type="number" id="qtyInp" value="1">
             </div>
             <div class="input-group">
                 <label>Çmimi (€)</label>
@@ -267,11 +219,11 @@
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
             <button class="btn btn-pdf" onclick="downloadPDF()">PDF 📄</button>
-            <button class="btn btn-wa" onclick="sendWhatsApp()">WHATSAPP ✅</button>
+            <button class="btn btn-wa" onclick="sendWhatsApp()">WhatsApp ✅</button>
         </div>
-        <button class="btn btn-viber" onclick="sendViber()">DËRGO NË VIBER 💜</button>
+        <button class="btn btn-viber" onclick="sendViber()">Dërgo Viber 💜</button>
 
-        <button onclick="clearInvoice()" style="background:none; border:none; color:#ff5e5e; font-size:0.7rem; cursor:pointer; margin-top:10px; font-weight:700; text-transform:uppercase; width: 100%;">Fshij të gjitha të dhënat</button>
+        <button onclick="clearInvoice()" style="background:none; border:none; color:#ff5e5e; font-size:0.7rem; cursor:pointer; margin-top:10px; text-transform:uppercase; width:100%">Fshij të gjitha</button>
     </aside>
 
     <main class="preview-area">
@@ -284,13 +236,12 @@
                 <div class="inv-meta">
                     <h4>FATURA #<span id="invNo">0000</span></h4>
                     <p>Data: <span id="dateDisplay"></span><br>
-                    Vendi: Drenas, Kosovë<br>
-                    Tel: +383 4X XXX XXX</p>
+                    Vendi: Drenas, Kosovë</p>
                 </div>
             </div>
 
             <div class="client-info-block">
-                <label>Faturë për klientin:</label>
+                <label>Faturë për:</label>
                 <h3 id="clientDisplay">KLIENTI SHEMBULL</h3>
             </div>
 
@@ -304,8 +255,7 @@
                             <th style="text-align: right;">Totali</th>
                         </tr>
                     </thead>
-                    <tbody id="itemsList">
-                    </tbody>
+                    <tbody id="itemsList"></tbody>
                 </table>
             </div>
 
@@ -318,11 +268,9 @@
 
             <div class="inv-footer-note">
                 <div class="note-text">
-                    <strong>Vërejtje:</strong> Ky dokument është gjeneruar në mënyrë digjitale dhe shërben si faturë zyrtare. Faleminderit për besimin!
+                    <strong>Vërejtje:</strong> Dokument i gjeneruar në mënyrë digjitale. Faleminderit për besimin!
                 </div>
-                <div class="signature-line">
-                    Nënshkrimi
-                </div>
+                <div class="signature-line">Nënshkrimi</div>
             </div>
         </div>
     </main>
@@ -330,88 +278,70 @@
 
 <script>
     let items = [];
-    const date = new Date();
-    document.getElementById('dateDisplay').innerText = date.toLocaleDateString('sq-AL');
+    document.getElementById('dateDisplay').innerText = new Date().toLocaleDateString('sq-AL');
     document.getElementById('invNo').innerText = Math.floor(1000 + Math.random() * 9000);
 
     function updatePreview() {
-        const name = document.getElementById('clientInp').value;
-        document.getElementById('clientDisplay').innerText = name || "KLIENTI SHEMBULL";
+        document.getElementById('clientDisplay').innerText = document.getElementById('clientInp').value || "KLIENTI SHEMBULL";
     }
 
     function addItem() {
         const name = document.getElementById('nameInp').value;
-        const type = document.getElementById('typeInp').value;
-        const unit = document.getElementById('unitInp').value;
-        const qty = parseFloat(document.getElementById('qtyInp').value);
         const price = parseFloat(document.getElementById('priceInp').value);
+        if(!name || isNaN(price)) return alert("Plotëso fushat!");
 
-        if(!name || isNaN(price)) { alert("Ju lutem plotësoni përshkrimin dhe çmimin!"); return; }
-
-        const total = qty * price;
-        items.push({ name, type, unit, qty, price, total });
-        
+        const item = {
+            name,
+            type: document.getElementById('typeInp').value,
+            unit: document.getElementById('unitInp').value,
+            qty: parseFloat(document.getElementById('qtyInp').value),
+            price,
+            total: parseFloat(document.getElementById('qtyInp').value) * price
+        };
+        items.push(item);
         renderItems();
-        
         document.getElementById('nameInp').value = "";
         document.getElementById('priceInp').value = "";
     }
 
     function renderItems() {
         const list = document.getElementById('itemsList');
-        const totalDisplay = document.getElementById('grandTotal');
-        list.innerHTML = "";
         let gTotal = 0;
-
-        items.forEach((item, index) => {
-            gTotal += item.total;
-            list.innerHTML += `
-                <tr>
-                    <td><span class="type-tag">${item.type}</span> <strong>${item.name}</strong></td>
-                    <td>${item.qty} ${item.unit}</td>
-                    <td>${item.price.toFixed(2)} €</td>
-                    <td style="text-align: right; font-weight: 700;">${item.total.toFixed(2)} €</td>
-                </tr>
-            `;
+        list.innerHTML = "";
+        items.forEach(i => {
+            gTotal += i.total;
+            list.innerHTML += `<tr>
+                <td><span class="type-tag">${i.type}</span> <strong>${i.name}</strong></td>
+                <td>${i.qty} ${i.unit}</td>
+                <td>${i.price.toFixed(2)} €</td>
+                <td style="text-align: right; font-weight: 700;">${i.total.toFixed(2)} €</td>
+            </tr>`;
         });
-
-        totalDisplay.innerText = gTotal.toFixed(2) + " €";
+        document.getElementById('grandTotal').innerText = gTotal.toFixed(2) + " €";
     }
 
     function downloadPDF() {
-        const element = document.getElementById('invoice-card');
-        const opt = {
-            margin: 5,
-            filename: `Fatura_JetonThaqi_${Math.floor(Math.random()*1000)}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(element).save();
+        html2pdf().set({ margin: 5, filename: 'Fatura_JetonThaqi.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } }).from(document.getElementById('invoice-card')).save();
     }
 
     function generateShareText() {
-        const client = document.getElementById('clientInp').value || "Klient";
-        let text = `⚡ *FATURA: JETON THAQI* ⚡\n👤 Klienti: *${client}*\n\n`;
-        items.forEach(i => {
-            text += `🔹 ${i.name} (${i.qty} ${i.unit}) - *${i.total.toFixed(2)}€*\n`;
-        });
-        text += `\n━━━━━━━━━━━━━━\n💰 *TOTALI: ${document.getElementById('grandTotal').innerText}*\n━━━━━━━━━━━━━━\n🙏 Faleminderit!`;
+        let text = `⚡ *FATURA: JETON THAQI* ⚡\n👤 Klienti: *${document.getElementById('clientInp').value || "Klient"}*\n\n`;
+        items.forEach(i => text += `🔹 ${i.name} (${i.qty} ${i.unit}) - *${i.total.toFixed(2)}€*\n`);
+        text += `\n💰 *TOTALI: ${document.getElementById('grandTotal').innerText}*`;
         return encodeURIComponent(text);
     }
 
     function sendWhatsApp() { window.open(`https://wa.me/?text=${generateShareText()}`, '_blank'); }
     function sendViber() { window.open(`viber://forward?text=${generateShareText()}`, '_blank'); }
 
-    function clearInvoice() {
-        if(confirm("A jeni i sigurt?")) {
-            items = [];
-            document.getElementById('clientInp').value = "";
-            updatePreview();
-            renderItems();
-        }
+    function clearInvoice() { if(confirm("A jeni i sigurt?")) { items = []; updatePreview(); renderItems(); document.getElementById('clientInp').value=""; } }
+
+    // Service Worker per PWA (falas)
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdmZXRjaCcsIGU9Pnt9KTs=');
+        });
     }
 </script>
-
 </body>
 </html>
