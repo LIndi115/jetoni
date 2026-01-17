@@ -2,7 +2,7 @@
 <html lang="sq">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>JETON THAQI | Premium Billing System 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -45,7 +45,7 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
         }
 
         .brand-header h1 {
@@ -70,6 +70,7 @@
             color: white;
             font-size: 0.9rem;
             transition: all 0.3s ease;
+            width: 100%;
         }
 
         input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 15px var(--primary-glow); }
@@ -89,9 +90,10 @@
             gap: 10px;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-size: 0.85rem;
+            text-decoration: none;
         }
 
-        .btn-main { background: var(--primary); color: #000; box-shadow: 0 4px 20px var(--primary-glow); }
+        .btn-main { background: var(--primary); color: #000; box-shadow: 0 4px 20px var(--primary-glow); width: 100%; }
         .btn-pdf { background: #fff; color: #000; }
         .btn-wa { background: var(--whatsapp); color: white; }
         .btn-viber { background: var(--viber); color: white; }
@@ -145,7 +147,8 @@
         .client-info-block h3 { font-size: 1.4rem; text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* Table Styling */
-        table { width: 100%; border-collapse: collapse; margin-bottom: 50px; }
+        .table-responsive { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 50px; min-width: 500px; }
         th { text-align: left; padding: 15px 10px; border-bottom: 2px solid #000; font-size: 0.75rem; text-transform: uppercase; color: #888; }
         td { padding: 20px 10px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
         
@@ -166,13 +169,49 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+            gap: 20px;
         }
         .note-text { font-size: 0.75rem; color: #999; max-width: 350px; line-height: 1.5; }
         .signature-line { border-top: 1px solid #000; width: 180px; text-align: center; padding-top: 10px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
 
+        /* --- RESPONSIVE FIX FOR MOBILE --- */
         @media (max-width: 1100px) {
-            .main-grid { grid-template-columns: 1fr; }
-            .control-panel { height: auto; }
+            .main-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .control-panel {
+                padding: 25px;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .preview-area {
+                padding: 20px 10px;
+            }
+            #invoice-card {
+                padding: 30px 20px;
+                box-shadow: none;
+            }
+            .inv-top {
+                flex-direction: column;
+                gap: 25px;
+                margin-bottom: 30px;
+            }
+            .inv-meta {
+                text-align: left;
+            }
+            .total-box .amount {
+                font-size: 2.2rem;
+            }
+            .inv-footer-note {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-top: 40px;
+            }
+            .signature-line {
+                width: 100%;
+                margin-top: 30px;
+            }
         }
     </style>
 </head>
@@ -232,7 +271,7 @@
         </div>
         <button class="btn btn-viber" onclick="sendViber()">DËRGO NË VIBER 💜</button>
 
-        <button onclick="clearInvoice()" style="background:none; border:none; color:#ff5e5e; font-size:0.7rem; cursor:pointer; margin-top:10px; font-weight:700; text-transform:uppercase;">Fshij të gjitha të dhënat</button>
+        <button onclick="clearInvoice()" style="background:none; border:none; color:#ff5e5e; font-size:0.7rem; cursor:pointer; margin-top:10px; font-weight:700; text-transform:uppercase; width: 100%;">Fshij të gjitha të dhënat</button>
     </aside>
 
     <main class="preview-area">
@@ -255,18 +294,20 @@
                 <h3 id="clientDisplay">KLIENTI SHEMBULL</h3>
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 50%;">Përshkrimi i Shërbimit/Materialit</th>
-                        <th>Sasia</th>
-                        <th>Çmimi</th>
-                        <th style="text-align: right;">Totali</th>
-                    </tr>
-                </thead>
-                <tbody id="itemsList">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">Përshkrimi</th>
+                            <th>Sasia</th>
+                            <th>Çmimi</th>
+                            <th style="text-align: right;">Totali</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemsList">
                     </tbody>
-            </table>
+                </table>
+            </div>
 
             <div class="total-section">
                 <div class="total-box">
@@ -277,10 +318,10 @@
 
             <div class="inv-footer-note">
                 <div class="note-text">
-                    <strong>Vërejtje:</strong> Ky dokument është gjeneruar në mënyrë digjitale dhe shërben si faturë zyrtare për shërbimet e kryera. Faleminderit që zgjodhët cilësinë dhe profesionalizmin tonë.
+                    <strong>Vërejtje:</strong> Ky dokument është gjeneruar në mënyrë digjitale dhe shërben si faturë zyrtare. Faleminderit për besimin!
                 </div>
                 <div class="signature-line">
-                    Nënshkrimi i autorizuar
+                    Nënshkrimi
                 </div>
             </div>
         </div>
@@ -305,14 +346,13 @@
         const qty = parseFloat(document.getElementById('qtyInp').value);
         const price = parseFloat(document.getElementById('priceInp').value);
 
-        if(!name || !price) { alert("Ju lutem plotësoni përshkrimin dhe çmimin!"); return; }
+        if(!name || isNaN(price)) { alert("Ju lutem plotësoni përshkrimin dhe çmimin!"); return; }
 
         const total = qty * price;
         items.push({ name, type, unit, qty, price, total });
         
         renderItems();
         
-        // Reset inputs
         document.getElementById('nameInp').value = "";
         document.getElementById('priceInp').value = "";
     }
@@ -341,10 +381,10 @@
     function downloadPDF() {
         const element = document.getElementById('invoice-card');
         const opt = {
-            margin: 0,
+            margin: 5,
             filename: `Fatura_JetonThaqi_${Math.floor(Math.random()*1000)}.pdf`,
-            image: { type: 'jpeg', quality: 1 },
-            html2canvas: { scale: 3, useCORS: true },
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
         html2pdf().set(opt).from(element).save();
@@ -356,7 +396,7 @@
         items.forEach(i => {
             text += `🔹 ${i.name} (${i.qty} ${i.unit}) - *${i.total.toFixed(2)}€*\n`;
         });
-        text += `\n━━━━━━━━━━━━━━\n💰 *TOTALI: ${document.getElementById('grandTotal').innerText}*\n━━━━━━━━━━━━━━\n🙏 Faleminderit për besimin!`;
+        text += `\n━━━━━━━━━━━━━━\n💰 *TOTALI: ${document.getElementById('grandTotal').innerText}*\n━━━━━━━━━━━━━━\n🙏 Faleminderit!`;
         return encodeURIComponent(text);
     }
 
@@ -364,7 +404,7 @@
     function sendViber() { window.open(`viber://forward?text=${generateShareText()}`, '_blank'); }
 
     function clearInvoice() {
-        if(confirm("A jeni i sigurt që dëshironi të fshini të gjitha të dhënat?")) {
+        if(confirm("A jeni i sigurt?")) {
             items = [];
             document.getElementById('clientInp').value = "";
             updatePreview();
