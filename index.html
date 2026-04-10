@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEW STARS | Cloud Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37; --dark: #050505; --card: #111111;
+            --border: rgba(212, 175, 55, 0.2); --success: #00ff88;
+            --danger: #ff4d4d; --glass: rgba(255, 255, 255, 0.03);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--dark); color: white; padding-bottom: 50px; }
+        #loginOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--dark); z-index: 9999; display: flex; justify-content: center; align-items: center;
+        }
+        .login-card {
+            background: var(--card); padding: 40px; border-radius: 30px; border: 1px solid var(--gold);
+            width: 90%; max-width: 400px; text-align: center; box-shadow: 0 0 50px rgba(212, 175, 55, 0.1);
+        }
+        header { 
+            padding: 20px; background: var(--card); border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000;
+        }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 30px; }
+        .stat-card { 
+            background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid var(--border); text-align: center;
+            border-top: 4px solid var(--gold);
+        }
+        .stat-card h3 { font-size: 1.6rem; color: white; }
+        .stat-card p { font-size: 0.6rem; opacity: 0.7; text-transform: uppercase; font-weight: 800; }
+        .filter-tags { display: flex; gap: 8px; margin-bottom: 25px; overflow-x: auto; padding-bottom: 10px; }
+        .tag-btn { background: var(--glass); border: 1px solid var(--border); color: white; padding: 10px 18px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.8rem; }
+        .tag-btn.active { background: var(--gold); color: black; }
+        .search-box { position: relative; margin-bottom: 20px; }
+        #searchInput { width: 100%; padding: 18px; border-radius: 15px; background: var(--card); border: 1px solid var(--border); color: white; text-align: center; outline: none; }
+        .search-results { background: #1a1a1a; border-radius: 15px; border: 1px solid var(--border); margin-top: 5px; max-height: 300px; overflow-y: auto; display: none; }
+        .result-item { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; display: flex; justify-content: space-between; }
+        .player-profile { background: var(--card); border-radius: 25px; border: 1px solid var(--border); padding: 30px; margin-top: 20px; display: none; }
+        .months-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+        .month-btn { background: var(--glass); border: 1px solid var(--border); color: white; padding: 15px 5px; border-radius: 12px; cursor: pointer; text-align: center; font-size: 0.8rem; }
+        .month-btn.paid { background: var(--success); color: black; font-weight: 800; }
+        .history-list { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 15px; font-size: 0.85rem; max-height: 150px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.05); }
+        .history-item { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; }
+        .btn-main { background: var(--gold); color: black; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 800; cursor: pointer; }
+        .btn-danger { background: rgba(255, 77, 77, 0.1); color: var(--danger); border: 1px solid var(--danger); padding: 12px; border-radius: 12px; cursor: pointer; width: 100%; margin-top: 25px; font-weight: 800; }
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .modal-content { background: #121212; padding: 35px; border-radius: 30px; width: 90%; max-width: 400px; border: 1px solid var(--gold); }
+    </style>
+</head>
+<body>
+
+    <div id="loginOverlay">
+        <div class="login-card">
+            <h1 style="color: var(--gold); margin-bottom: 10px;">NEW STARS</h1>
+            <p style="opacity: 0.6; margin-bottom: 30px; font-size: 0.9rem;">Sistemi Cloud 2026</p>
+            <input type="text" id="user" placeholder="Përdoruesi" style="width:100%; padding:15px; border-radius:12px; background:#000; border:1px solid var(--border); color:white; margin-bottom:15px; outline:none;">
+            <input type="password" id="pass" placeholder="Fjalëkalimi" style="width:100%; padding:15px; border-radius:12px; background:#000; border:1px solid var(--border); color:white; margin-bottom:25px; outline:none;">
+            <button class="btn-main" style="width:100%" onclick="handleLogin()">KYÇU</button>
+        </div>
+    </div>
+
+    <div id="mainApp" style="display: none;">
+        <header>
+            <div style="font-weight: 800; color: var(--gold); font-size: 1.5rem;">NEW STARS ⚽</div>
+            <div style="display:flex; gap:10px;">
+                <button class="btn-main" onclick="openModal('regModal')">+ SHTO</button>
+                <button onclick="logout()" style="background:none; border:none; color:white; opacity:0.5; font-size:0.8rem; cursor:pointer;">Dalja</button>
+            </div>
+        </header>
+
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h4 style="color: var(--gold); font-size: 0.8rem; text-transform: uppercase;">Pasqyra Financiare</h4>
+                <select id="dashboardMonth" onchange="updateDashboard()" style="background:var(--card); border:1px solid var(--gold); color:var(--gold); padding:8px; border-radius:10px; font-weight:800;"></select>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card"><h3 id="stat-total">0</h3><p>Lojtarë</p></div>
+                <div class="stat-card"><h3 id="stat-paid" style="color: var(--success);">0</h3><p>Paguar</p></div>
+                <div class="stat-card"><h3 id="stat-debt" style="color: var(--danger);">0</h3><p>Borxhli</p></div>
+                <div class="stat-card"><h3 id="stat-money" style="color: var(--gold);">0€</h3><p>Arka</p></div>
+            </div>
+
+            <div style="display: flex; gap:10px; margin-bottom: 20px;">
+                <button class="tag-btn" onclick="exportData()">Shkarko Raportin (CSV)</button>
+            </div>
+
+            <div class="filter-tags">
+                <button class="tag-btn active" id="btn-all" onclick="filterByCat('All')">TË GJITHË</button>
+                <button class="tag-btn" onclick="filterByCat('U9')">U9</button>
+                <button class="tag-btn" onclick="filterByCat('U11')">U11</button>
+                <button class="tag-btn" onclick="filterByCat('U13')">U13</button>
+                <button class="tag-btn" onclick="filterByCat('U15')">U15</button>
+                <button class="tag-btn" onclick="filterByCat('U17')">U17</button>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Kërko lojtarin..." onkeyup="searchPlayer()">
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <div id="playerProfile" class="player-profile">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+                    <div>
+                        <h2 id="viewName" style="font-size: 2rem; text-transform: capitalize;">---</h2>
+                        <p id="viewCat" style="color: var(--gold); font-weight: 800;"></p>
+                        <p id="regDate" style="font-size: 0.7rem; opacity: 0.5;"></p>
+                    </div>
+                    <div id="viewStatus" style="padding: 10px 20px; border-radius: 12px; font-weight: 800; font-size: 0.8rem;">---</div>
+                </div>
+                <div class="months-grid" id="monthsGrid"></div>
+                <p style="font-size: 0.7rem; opacity: 0.6; margin-bottom: 10px; font-weight: 800;">HISTORIKU:</p>
+                <div class="history-list" id="paymentHistory"></div>
+                <button class="btn-danger" onclick="deletePlayer()">FSHIJ LOJTARIN</button>
+                <p onclick="closeProfile()" style="text-align:center; margin-top:20px; cursor:pointer; opacity:0.5;">Mbyll</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="regModal" class="modal">
+        <div class="modal-content">
+            <h2>Lojtar i Ri</h2>
+            <input type="text" id="regName" placeholder="Emri dhe Mbiemri" style="width:100%; padding:15px; margin-bottom:15px; background:#000; border:1px solid #333; color:white; border-radius:10px;">
+            <select id="regCategory" style="width:100%; padding:15px; margin-bottom:20px; background:#000; border:1px solid #333; color:white; border-radius:10px;">
+                <option value="U9">U9</option><option value="U11">U11</option><option value="U13">U13</option><option value="U15">U15</option><option value="U17">U17</option>
+            </select>
+            <button class="btn-main" style="width:100%" onclick="saveNewPlayer()">RUAJ NË CLOUD</button>
+            <p onclick="closeModal('regModal')" style="text-align:center; margin-top:15px; cursor:pointer;">Anulo</p>
+        </div>
+    </div>
+
+    <div id="payModal" class="modal">
+        <div class="modal-content">
+            <h2 id="payModalTitle">Pagesa</h2>
+            <input type="number" id="payAmount" value="20" style="width:100%; padding:15px; margin-bottom:20px; background:#000; border:1px solid #333; color:white; border-radius:10px;">
+            <button class="btn-main" style="width:100%" onclick="executePayment()">KONFIRMO</button>
+            <p onclick="closeModal('payModal')" style="text-align:center; margin-top:15px; cursor:pointer;">Mbyll</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBh_7bwfNbKbscPSW1ZN9Y_UvAntsjl9Wg",
+            authDomain: "herolind-6ca5f.firebaseapp.com",
+            databaseURL: "https://herolind-6ca5f-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "herolind-6ca5f",
+            storageBucket: "herolind-6ca5f.firebasestorage.app",
+            messagingSenderId: "893085364638",
+            appId: "1:893085364638:web:2db59e6ec72ad7e7c1a68f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const dbCloud = getFirestore(app);
+        
+        // KEMI NDRYSHUAR EMERTISIN E TABELES QE TE JET E PASTER (NEWSTARS)
+        const playersRef = collection(dbCloud, "players_newstars");
+
+        let players = [];
+        let currentId = null;
+        let selectedMonthForPayment = null;
+        const months = ["Janar", "Shkurt", "Mars", "Prill", "Maj", "Qershor", "Korrik", "Gusht", "Shtator", "Tetor", "Nëntor", "Dhjetor"];
+
+        window.handleLogin = () => {
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+            if(u === "NEWSTARS" && p === "admin2026") {
+                sessionStorage.setItem('gb_auth', 'true');
+                location.reload();
+            } else { alert("Përdoruesi ose fjalëkalimi gabim!"); }
+        };
+
+        window.logout = () => { sessionStorage.removeItem('gb_auth'); location.reload(); };
+
+        if(sessionStorage.getItem('gb_auth') === 'true') {
+            document.getElementById('loginOverlay').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            
+            const sel = document.getElementById('dashboardMonth');
+            const curIdx = new Date().getMonth();
+            months.forEach((m, i) => {
+                let opt = new Option(m, m);
+                if(i === curIdx) opt.selected = true;
+                sel.add(opt);
+            });
+
+            onSnapshot(playersRef, (snapshot) => {
+                players = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                updateDashboard();
+                if(currentId) openProfile(currentId);
+            });
+        }
+
+        window.saveNewPlayer = async () => {
+            const name = document.getElementById('regName').value;
+            if(!name) return;
+            await addDoc(playersRef, { 
+                name, 
+                category: document.getElementById('regCategory').value, 
+                payments: [],
+                registeredAt: new Date().toLocaleDateString('sq-AL')
+            });
+            closeModal('regModal');
+            document.getElementById('regName').value = "";
+        };
+
+        window.openProfile = (id) => {
+            currentId = id;
+            const p = players.find(x => x.id === id);
+            if(!p) return;
+            document.getElementById('playerProfile').style.display = 'block';
+            document.getElementById('viewName').innerText = p.name;
+            document.getElementById('viewCat').innerText = "Kategoria: " + p.category;
+            document.getElementById('regDate').innerText = "Regjistruar: " + p.registeredAt;
+            
+            document.getElementById('monthsGrid').innerHTML = months.map(m => {
+                const pay = p.payments.find(px => px.month === m);
+                return `<div class="month-btn ${pay ? 'paid' : ''}" onclick="initPay('${m}', ${!!pay})">${m}<br>${pay ? pay.amount+'€ ✅' : '❌'}</div>`;
+            }).join('');
+
+            const hist = document.getElementById('paymentHistory');
+            hist.innerHTML = p.payments.length ? p.payments.map(pay => `
+                <div class="history-item"><span>${pay.month}</span><small>${pay.date}</small><b>+${pay.amount}€</b></div>`).reverse().join('') : "Nuk ka pagesa.";
+
+            const currentMonthName = months[new Date().getMonth()];
+            const isPaid = p.payments.some(pay => pay.month === currentMonthName);
+            const st = document.getElementById('viewStatus');
+            st.innerText = isPaid ? "PAGUAR" : "BORXHLI";
+            st.style.background = isPaid ? "var(--success)" : "var(--danger)";
+            st.style.color = isPaid ? "black" : "white";
+
+            document.getElementById('searchResults').style.display = 'none';
+        };
+
+        window.initPay = (m, isPaid) => { if(!isPaid) { selectedMonthForPayment = m; openModal('payModal'); } };
+
+        window.executePayment = async () => {
+            const amount = document.getElementById('payAmount').value;
+            const p = players.find(x => x.id === currentId);
+            const newPayments = [...p.payments, { 
+                month: selectedMonthForPayment, 
+                amount: parseFloat(amount).toFixed(2), 
+                date: new Date().toLocaleString('sq-AL') 
+            }];
+            await updateDoc(doc(dbCloud, "players_newstars", currentId), { payments: newPayments });
+            closeModal('payModal');
+        };
+
+        window.updateDashboard = () => {
+            const m = document.getElementById('dashboardMonth').value;
+            let paid = 0, money = 0;
+            players.forEach(p => {
+                const py = p.payments.find(x => x.month === m);
+                if(py) { paid++; money += parseFloat(py.amount); }
+            });
+            document.getElementById('stat-total').innerText = players.length;
+            document.getElementById('stat-paid').innerText = paid;
+            document.getElementById('stat-debt').innerText = players.length - paid;
+            document.getElementById('stat-money').innerText = money.toFixed(2) + "€";
+        };
+
+        window.searchPlayer = () => {
+            const val = document.getElementById('searchInput').value.toLowerCase();
+            const res = document.getElementById('searchResults');
+            if(val.length < 1) { res.style.display = 'none'; return; }
+            const filtered = players.filter(p => p.name.toLowerCase().includes(val));
+            res.innerHTML = filtered.map(p => `<div class="result-item" onclick="openProfile('${p.id}')"><span>${p.name}</span><b>${p.category}</b></div>`).join('');
+            res.style.display = 'block';
+        };
+
+        window.filterByCat = (cat) => {
+            const res = document.getElementById('searchResults');
+            const filtered = cat === 'All' ? players : players.filter(p => p.category === cat);
+            res.innerHTML = filtered.map(p => `<div class="result-item" onclick="openProfile('${p.id}')"><span>${p.name}</span><b>${p.category}</b></div>`).join('');
+            res.style.display = 'block';
+        };
+
+        window.exportData = () => {
+            let csv = "Emri,Kategoria,Data Regjistrimit,Pagesa Totale\n";
+            players.forEach(p => {
+                let total = 0; p.payments.forEach(pay => total += parseFloat(pay.amount));
+                csv += `"${p.name}","${p.category}","${p.registeredAt}","${total.toFixed(2)}€"\n`;
+            });
+            const blob = new Blob(["\ufeff" + csv], { type: 'text/csv' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'Raporti_Cloud_NEW_STARS.csv'; a.click();
+        };
+
+        window.deletePlayer = async () => { if(confirm("Fshije lojtarin përfundimisht nga Cloud?")) { await deleteDoc(doc(dbCloud, "players_newstars", currentId)); closeProfile(); } };
+        window.openModal = (id) => document.getElementById(id).style.display = 'flex';
+        window.closeModal = (id) => document.getElementById(id).style.display = 'none';
+        window.closeProfile = () => { currentId = null; document.getElementById('playerProfile').style.display = 'none'; };
+    </script>
+</body>
+</html>
